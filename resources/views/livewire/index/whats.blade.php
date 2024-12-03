@@ -2,15 +2,14 @@
     <div x-data="qrhe()" x-init="qrcj()" class="h-screen w-screen bg-violet-500" wire:poll>
         <div class="flex flex-col justify-center items-center h-full w-full">
             @if (!$luser == 2)
-                
             @else
-            <h1 class="text-6xl font-bold text-white">
-                @if ($luser == 3)
-                    Whatsapp Server Is Not Running...
-                @else
-                    Scan The QR
-                @endif
-            </h1>
+                <h1 class="text-6xl font-bold text-white">
+                    @if ($luser == 3)
+                        Whatsapp Server Is Not Running...
+                    @else
+                        Scan The QR
+                    @endif
+                </h1>
             @endif
 
             @if ($luser == 1)
@@ -26,13 +25,17 @@
                         <input type="text" name="message" wire:model='msg' class="rounded-lg py-2 px-2">
 
                         <div class="w-full flex justify-center items-center gap-2">
-                        <button type="submit" class="mt-5 bg-white rounded-lg w-1/4 p-2 font-semibold text-slate-700 hover:shadow-[0px_0px_25px_-5px] hover:shadow-white hover:scale-125 transition-all">send</button>
-                    </div>
+                            <button type="submit"
+                                class="mt-5 bg-white rounded-lg w-1/4 p-2 font-semibold text-slate-700 hover:shadow-[0px_0px_25px_-5px] hover:shadow-white hover:scale-125 transition-all">send</button>
+                        </div>
                     </form>
-                    <button wire:click='lgout' class="mt-5 bg-white rounded-lg w-1/4 p-2 font-semibold text-slate-700 hover:shadow-[0px_0px_25px_-5px] hover:shadow-white hover:scale-125 transition-all">logout</button>
+                    <button wire:click='lgout'
+                        class="mt-5 bg-white rounded-lg w-1/4 p-2 font-semibold text-slate-700 hover:shadow-[0px_0px_25px_-5px] hover:shadow-white hover:scale-125 transition-all">logout</button>
                 </div>
             @endif
         </div>
+        <button wire:click='msgs'
+            class="mt-5 bg-white rounded-lg w-1/4 p-2 font-semibold text-slate-700 hover:shadow-[0px_0px_25px_-5px] hover:shadow-white hover:scale-125 transition-all">logout</button>
     </div>
 
     @push('js')
