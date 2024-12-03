@@ -9,7 +9,6 @@ use Livewire\Component;
 
 class Whats extends Component
 {
-
     public $data;
 
     public $result;
@@ -28,7 +27,7 @@ class Whats extends Component
     }
 
     public function mount()
-    {   
+    {
         try {
             $client = Http::timeout(10)->get('http://localhost:3000/qr');
             $this->luser = 1;
@@ -38,16 +37,16 @@ class Whats extends Component
 
         if ($this->luser != 3) {
             if ($client['status'] == false) {
-                if (!is_null($client)) {
+                if (! is_null($client)) {
                     $this->data = $client['qrs'];
-                    $this->result = (new QRCode())->render($this->data);
+                    $this->result = (new QRCode)->render($this->data);
                 }
                 $this->luser = 1;
             } elseif ($client['status'] == true) {
                 $this->luser = 2;
             }
         }
-        
+
     }
 
     public function genrc()
@@ -57,11 +56,20 @@ class Whats extends Component
 
     public function msgs()
     {
-        $this->validate();
+        $urlm = 'http://localhost:3000/msg';
 
-        $urlm = 'http://localhost:3000/msg/' . $this->msg . '/number/' . $this->number;
+        $sendc = Http::withHeaders([
+            'Content-Type' => 'application/json',
+        ])->post($urlm, [
+            'number' => 9080962674,
+            'name' => 'test',
+            'data' => now()->format('d-m-Y'),
+            'time' => now()->format('h:i'),
+            'email' => 'opt',
+            'gender' => 'male',
+        ]);
 
-        $sendc = Http::post($urlm);
+        dd($sendc->body());
 
         $this->reset();
     }
@@ -69,7 +77,7 @@ class Whats extends Component
     public function lgout()
     {
         $lgout = Http::get('http://localhost:3000/logout');
-        
+
         if ($lgout['status'] == false) {
             $this->redirect('/in');
         }
