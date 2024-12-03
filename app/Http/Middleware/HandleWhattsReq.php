@@ -14,14 +14,26 @@ class HandleWhattsReq
      *
      * @param  \Closure(\Illuminate\Http\Request): (\Symfony\Component\HttpFoundation\Response)  $next
      */
-    public function handle(Request $request, Closure $next): Response
+    public function handle(Request $request, Closure $next)
     {
-        $token = CheckController::getToken();
-        dd($token);
-        if (isset($request->token) && $request->token !== '' && $request->token == $token) {
+        $token = $this->getToken();
+
+        if ($request->has('token') && $request->input('token') === $token) {
             return $next($request);
         }
-        // return response()->json(['error' => 'Invalid token'], 401);
+
+        return response()->json(['error' => 'Invalid token'], 401);
+    }
+
+    /**
+     * Get the token.
+     *
+     * @return string
+     */
+    protected function getToken()
+    {
+        
+        return "$2y$12$7sqhPngJx97sQkNKv7YyMe6RqOJuIX12TcsAncG2iCICe3Xx.NkNO";
     }
 
 }
