@@ -10,4 +10,4 @@ Route::get('/user', function (Request $request) {
 })->middleware('auth:sanctum');
 
 Route::post('/token', [CheckController::class, 'validateFormData'])->middleware('token');
-Route::post('/message', [MessageController::class, 'HandleMessage']);
+Route::post('/message', [MessageController::class, 'HandleMessage'])->middleware('token');

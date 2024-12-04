@@ -13,6 +13,7 @@ class CheckController extends Controller
     {
         $fields = $request->all();
         dd($fields);
+        
     }
 
 
